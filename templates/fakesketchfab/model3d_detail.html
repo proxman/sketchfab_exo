@@ -1,0 +1,22 @@
+{% extends 'fakesketchfab/base.html' %}
+
+{% load bootstrap3 %}
+{% load static %}
+
+{% block title %}
+    Models list
+{% endblock %}
+
+{% block content %}
+    <h2>{{ object.about.name }}</h2>
+    <p><em>by {{ object.uploader.display_name }} Badges:
+        {% for badge in  object.uploader.badges.all %}
+            <img src="{% get_media_prefix %}/{{ badge.badge_avatar }}" align="{{ badge.name }}" />
+        {% endfor %}
+    </em></p>
+    <p><em>Views {{ object.about.users_views_count }}</em></p>
+
+    <hr>
+
+
+{% endblock %}

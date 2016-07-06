@@ -1,0 +1,26 @@
+{% extends 'fakesketchfab/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    Models list
+{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+        {% for model in object_list %}
+            <tr>
+                <td><a href="{% url 'detail-view' model.id %}">{{ model.about.name }}</a></td>
+            </tr>
+            <li></li>
+        {% empty %}
+            <li>No models yet.</li>
+        {% endfor %}
+
+    </table>
+
+    <hr>
+
+
+{% endblock %}
