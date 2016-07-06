@@ -7,12 +7,9 @@ badgesfab is a simple Django app to create and attribute Badges to your
 users for theirs engagements. This app override a lot of Taggit Model and 
 Manager Classes.
 
-In this app, we handle for you the MultiTagManager support to avoid
-conflict if other TagManager were declared.
+In this app, we override TagManager [to avoid conflict ](http://django-taggit.readthedocs.io/en/latest/changelog.html?highlight=multiple#id28) if other TagManager 
+were declared.
 
- 
-
-Detailed documentation is in the "docs" directory.
 
 Quick start
 -----------
@@ -22,14 +19,14 @@ Quick start
     INSTALLED_APPS = [
         ...
         'django.contrib.sites',
-        'actstream',
+        'actstream', # Optional -> Future support
         'badgesfab',
-        'django_filters',
-        'crispy_forms',
+        'django_filters', # Filtering support for rest_framework
+        'crispy_forms', # Improved HTML display for filtering
         'rest_framework',
-        'fakesketchfab',
-        'taggit',
-        'djmoney',
+        'fakesketchfab', # Fake sketchfab app
+        'taggit', # required for Badgesfab
+        'djmoney', # 
         'badgesfab',
     ]
 
@@ -38,6 +35,14 @@ Quick start
     url(r'^badges/', include('badgesfab.urls')),
     
 Query URL http://127.0.0.1:8000/badges/list/ to get all URL
+Query URL http://127.0.0.1:8000/explore/userlist/ to get users badge
+
+### TODO
+
+- [ ] create HyperlinkedModelSerializer to badge instead of badge ID.
+- [ ] import data.sql rule a install
+- [ ] Make reusable app :)
+- [x] ...
 
 Then run:
 3.  `python manage.py check`
@@ -52,20 +57,5 @@ Then run:
    to create badges and define the rules of attribution
    (you'll need the Admin app enabled).
 
+there is a data.sql file with built in rule
 
-Builtin rule of attribution:
-
-How to read this rule:
-
-If an <Actor> <Verb> 
-
-Actor: User
-Verb: "reached 1k views"
-Target: "Model3d"
-
-Actor: User
-Verb: "uploaded more than 5"
-Target: "Model3d"
-
-Actor: User
-Verb: "exists for more than 1 year"
