@@ -27,7 +27,6 @@ Quick start
         'fakesketchfab', # Fake sketchfab app
         'taggit', # required for Badgesfab
         'djmoney', # 
-        'badgesfab',
     ]
 
 2. Include the badgesfab URLconf in your project urls.py like this::
