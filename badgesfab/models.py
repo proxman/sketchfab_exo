@@ -101,7 +101,8 @@ class Rule(models.Model):
 
         # Check if a model field is selected
         if isinstance(self.content_type, ContentType) and self.model_field is None or self.model_field == '':
-            raise ValidationError({'model_field': _('Model object field or "property" must be selected.')}, code='required')
+            raise ValidationError({'model_field': _('Model object field or "property" must be selected.')},
+                                  code='required')
 
         # Check if field is really a selected model field.
         if not hasattr(modelclass, self.model_field) and not (
@@ -159,6 +160,17 @@ class RewardRule(models.Model):
         related_name="rewarded_type",
         verbose_name='Object reward')
     award = models.ForeignKey('Badge', blank=True, null=models.SET_NULL)
+
+    def __str__(self):
+        rule_display_str = str(self.rule)
+        rewarded_modelclass = self.rewarded_type.model_class()
+        badge = self.award.name
+
+        return "\"{rewarded_modelclass}\" will win a \"{badge} badge\" if {rule_display_str} match".format(
+            rewarded_modelclass=rewarded_modelclass._meta.verbose_name,
+            badge=badge,
+            rule_display_str=rule_display_str,
+            )
 
 
 class Operand(models.Model):
