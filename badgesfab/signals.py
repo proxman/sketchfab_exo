@@ -3,6 +3,13 @@ from django.contrib.contenttypes.models import ContentType
 
 
 def modelSaveSignal(sender, **kwargs):
+    '''
+    Receive model save signal configured in AppConfig of tracked model app.
+    This signal receiver needs to be total rewrite and refactored
+    :param sender:
+    :param kwargs:
+    :return:
+    '''
     ctype = ContentType.objects.get_for_model(sender)
     all_matching_rules = Rule.objects.filter(content_type=ctype)
     for rule in all_matching_rules:
@@ -33,5 +40,10 @@ def modelSaveSignal(sender, **kwargs):
                     for j in related_model._meta.get_fields_with_model():
                         if j[0].related_model == rewarded_type:
                             winner = getattr(getattr(instance, i.name), j[0].name)
-                            winner.badges.add(award)
+                            if hasattr(winner, 'badges'):
+                                winner.badges.add(award)
+            else:
+                winner = getattr(instance, obj[0])
+                if hasattr(winner, 'badges'):
+                    winner.badges.add(award)
 
