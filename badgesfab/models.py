@@ -173,11 +173,6 @@ class RewardRule(models.Model):
             )
 
 
-class Operand(models.Model):
-    model_or_value = models.CharField(max_length=255, blank=True)
-    rules = GenericRelation(to=Rule, blank=True, verbose_name=_('Rule'))
-
-
 class BadgeItemBase(ItemBase):
     def __str__(self):
         return _("%(object)s received a %(tag)s badge") % {
