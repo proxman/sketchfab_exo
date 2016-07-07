@@ -28,11 +28,6 @@ class RuleForm(forms.ModelForm):
         model = Rule
         fields = '__all__'
 
-    # def clean(self):
-    #     if not hasattr(self.instance, 'content_type'):
-    #         raise ValidationError({'content_type': _('Object to compare with must be selected')}, code='required')
-    #     return super().clean()
-
     def clean_content_type(self):
         clean_data = self.cleaned_data['content_type']
         if clean_data not in ContentType.objects.filter(self._meta.model.limit):
